@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Module7_Assignment',
       home: ProductList(),
     );
   }
@@ -139,9 +140,20 @@ class CartPage extends StatelessWidget {
 
   const CartPage(this.products, {super.key});
 
+  int calculateTotalQuantity() {
+    Set<String> uniqueProducts = Set<String>();
+    for (Product product in products) {
+      if (product.quantity > 0) {
+        uniqueProducts.add(product.name);
+      }
+    }
+    return uniqueProducts.length;
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    int totalQuantity = products.fold(0, (sum, product) => sum + product.quantity);
+    int totalQuantity = calculateTotalQuantity();
 
     return Scaffold(
       appBar: AppBar(
